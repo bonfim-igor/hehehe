@@ -17,7 +17,7 @@ const visited = new Set();
 // mensagens do carrossel (opcional)
 const messages = [
   "Uma de nossas primeiras lembranças juntos 🥰",
-  "Dia 19/08 sempre será uma data muito especial 💙",
+  "Seu aniversário sempre será uma data muito especial 💙",
   "Essa foi a primeira vez que te vi, fiquei UAUUUU 😍",
   "Um dia iremos refazer essa foto porém IRL!!! ❤️"
 ];
