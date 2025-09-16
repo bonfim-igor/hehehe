@@ -1,0 +1,263 @@
+/* base */
+:root{
+  --bg:#a8d0e6;
+  --btn:#f3e9ff;
+  --accent:#ff4d6d;
+}
+*{box-sizing:border-box}
+html,body{height:100%; margin:0}
+body{
+  font-family: "Comic Neue", system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+  background:var(--bg);
+  color:#fff;
+  -webkit-font-smoothing:antialiased;
+  -moz-osx-font-smoothing:grayscale;
+  overflow-y:auto;
+  padding-bottom:180px;
+}
+
+/* overlay blur */
+#overlay{
+  position:fixed; inset:0; pointer-events:none;
+  backdrop-filter: blur(0px);
+  transition:backdrop-filter .35s ease;
+  z-index:40;
+}
+
+/* header */
+header{padding:18px 12px 0}
+h1{margin:0; font-size:28px; text-align:center; color:#fff}
+
+#introText h2 {
+  text-align: center;      /* centraliza o título */
+  font-size: clamp(20px, 3vw, 36px); /* opcional: ajusta o tamanho responsivo */
+  margin-bottom: 20px;     /* espaço abaixo do título */
+}
+
+/* intro with border & blur */
+#introText{
+  width:clamp(280px,90%,900px);
+  margin:18px auto;
+  padding:18px;
+  border-radius:16px;
+  border:4px solid #fff;
+  background:rgba(255,255,255,0.03);
+  backdrop-filter: blur(6px);
+  text-align:left;
+  line-height:1.6;
+  color:#fff;
+}
+
+/* carousel container */
+.carousel-container{
+  width:clamp(320px,90%,900px);
+  height:520px;
+  max-width:900px;
+  margin:18px auto;
+  position:relative;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+}
+
+/* left/right nav buttons */
+.nav-btn{
+  position:absolute;
+  top:50%;
+  transform:translateY(-50%);
+  width:54px;height:54px;border-radius:50%;
+  border:1; cursor:pointer;
+  border-color: #fff;
+  background:rgba(255,255,255,0.0);
+  color:#ffffff;font-size:22px;
+  display:flex;align-items:center;justify-content:center;
+  z-index:60;
+  box-shadow:0 6px 18px rgba(0,0,0,0.0);
+}
+
+#prev{ left:8px }
+#next{ right:8px }
+.nav-btn:active{ transform:translateY(-50%) scale(.98) }
+
+/* carousel area */
+.carousel{
+  position:relative;
+  width:100%;
+  height:100%;
+  perspective:1200px;
+  display:block;
+  overflow:visible; /* allow arrows */
+}
+
+/* slides */
+.slide{
+  position:absolute;
+  top:0; left:50%;
+  width:60%;
+  height:100%;
+  transform:translateX(-50%) scale(.75);
+  transition: transform .8s cubic-bezier(.2,.9,.2,1), opacity .6s;
+  opacity:0;
+  border-radius:18px;
+  overflow:hidden;
+  box-shadow: 0 10px 30px rgba(0,0,0,.25);
+}
+.slide img, .slide video{
+  width:100%; height:100%; object-fit:cover; display:block;
+  border-radius:18px; border:5px solid #fff;
+  filter:brightness(.9); transition:filter .6s ease;
+}
+
+/* positions */
+.slide.active{ opacity:1; transform:translateX(-50%) scale(1); z-index:50; filter:none; }
+.slide.left{ opacity:1; transform:translateX(-130%) scale(.82) rotateY(12deg); filter:blur(3px) brightness(.8); z-index:40; }
+.slide.right{ opacity:1; transform:translateX(30%) scale(.82) rotateY(-12deg); filter:blur(3px) brightness(.8); z-index:40; }
+
+/* message */
+.message{ text-align:center; margin:12px 0; font-size:18px; min-height:30px; }
+
+/* reasons (list) with border & blur */
+#reasons{
+  width:clamp(280px,90%,900px);
+  margin:20px auto;
+  padding:18px;
+  border-radius:16px;
+  border:4px solid #fff;
+  background:rgba(255,255,255,0.02);
+  backdrop-filter: blur(6px);
+  color:#fff;
+}
+#reasons h2{ text-align:center; margin-top:0 }
+#reasons ol{ margin:0 0 0 20px; padding:0 }
+#reasons li{ margin:8px 0 }
+
+/* final question container (hidden until visited all) */
+#finalQuestionContainer{
+  display: none;
+  width:clamp(260px,90%,700px);
+  margin:28px auto;
+  text-align:center;
+  opacity:0;
+  transition:opacity .5s ease, transform .5s ease;
+}
+#finalQuestion{ font-size:22px; margin-bottom:10px }
+#finalButtons{ display:flex; gap:14px; justify-content:center; align-items:center }
+#finalButtons button{
+  background:var(--btn);
+  color:#333;
+  padding:10px 20px;
+  border-radius:12px;
+  border:0;
+  cursor:pointer;
+  font-weight:700;
+  animation: pulse 1.6s infinite;
+}
+/* avoid large hover jumps on 'Não' move */
+#finalButtons button:hover{ transform: none }
+
+/* central final text (same font family as site) */
+#finalText{
+  position:fixed;
+  top:50%; left:50%;
+  transform:translate(-50%,-50%);
+  z-index:200;
+  display:none;
+  font-family: "Comic Neue", system-ui, sans-serif;
+  font-size:clamp(20px,4.2vw,64px);
+  font-weight:700;
+  color:#fff;
+  padding:18px 28px;
+  background: rgba(255,255,255,0.0);
+  text-align:center;
+  white-space: pre-line;
+  animation: finalPulse 1.2s ease-in-out infinite;
+  will-change: transform, opacity;
+}
+
+/* confetti */
+.confetti{
+  position:fixed;
+  width:10px;height:10px;border-radius:50%;
+  pointer-events:none; z-index:600;
+  will-change:transform, top, left;
+}
+
+/* music control */
+#musicControl{
+  position:fixed; left:12px; top:12px; z-index:500;
+  background: rgba(255,255,255,0.2); color:#fff;border:0;padding:8px 12px;border-radius:10px;border-color: #fff;
+  cursor: pointer;
+}
+
+/* Partículas de fundo */
+.particle {
+  position: fixed;
+  width: 8px;
+  height: 8px;
+  background-color: rgba(255,255,255,0.7);
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: -1;
+}
+
+.list-container {
+  border: 4px solid white; /* borda */
+  padding: 18px 22px;
+  margin: 20px auto;
+  backdrop-filter: blur(6px);
+  border-radius: 16px;
+  font-family: "Comic Neue", system-ui, sans-serif; /* padroniza com o site */
+  color: #fff;
+  line-height: 1.4em; /* boa leitura sem espaçamento excessivo */
+  max-width: 900px; /* igual ao carrossel */
+  background: rgba(255,255,255,0.03);
+  z-index: 0;
+}
+.list-container h2 {
+  text-align: center;
+  margin-bottom: 12px;
+}
+.list-container ol {
+  padding-left: 24px;
+  margin: 0;
+}
+.list-container li {
+  margin: 0; /* remove linha extra */
+  margin-bottom: 4px; /* pequeno espaçamento */
+}
+
+#no {
+  z-index: 100;
+}
+
+#specialRequest {
+  font-size: clamp(28px, 4vw, 64px); /* aumenta para ficar no tamanho da lista */
+  text-align: center;
+  margin: 40px 0; /* aumenta a distância da margem acima e abaixo */
+  animation: pulse 1.5s ease-in-out infinite; /* efeito pulse leve */
+}
+
+/* Safari / Chrome */
+video::-webkit-media-controls {
+  display: none !important;
+}
+
+/* Firefox */
+video::-moz-media-controls {
+  display: none !important;
+}
+
+/* Edge / IE */
+video::-ms-media-controls {
+  display: none !important;
+}
+
+/* small utilities */
+@keyframes pulse { 0%{ transform: scale(1) } 50%{ transform: scale(1.06) } 100%{ transform: scale(1) } }
+
+/* final pulse: keeps translate and scales */
+@keyframes finalPulse{
+  0%   { transform: translate(-50%,-50%) scale(1); }
+  50%  { transform: translate(-50%,-50%) scale(1.08); }
+  100% { transform: translate(-50%,-50%) scale(1); }
+}
