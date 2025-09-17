@@ -140,6 +140,7 @@ h1{margin:0; font-size:28px; text-align:center; color:#fff}
   opacity:0;
   transition:opacity .5s ease, transform .5s ease;
 }
+
 #finalQuestion{ font-size:22px; margin-bottom:10px }
 #finalButtons{ display:flex; gap:14px; justify-content:center; align-items:center }
 #finalButtons button{
