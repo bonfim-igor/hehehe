@@ -13,7 +13,7 @@ body{
   -webkit-font-smoothing:antialiased;
   -moz-osx-font-smoothing:grayscale;
   overflow-y:auto;
-  padding-bottom:180px;
+  padding-bottom:200px;
 }
 
 /* overlay blur */
@@ -110,11 +110,11 @@ h1{margin:0; font-size:28px; text-align:center; color:#fff}
 
 /* positions */
 .slide.active{ opacity:1; transform:translateX(-50%) scale(1); z-index:50; filter:none; }
-.slide.left{ opacity:1; transform:translateX(-130%) scale(.82) rotateY(12deg); filter:blur(3px) brightness(.8); z-index:40; }
-.slide.right{ opacity:1; transform:translateX(30%) scale(.82) rotateY(-12deg); filter:blur(3px) brightness(.8); z-index:40; }
+.slide.left{ opacity:1; transform:translateX(-130%) scale(.82) rotateY(12deg); filter:blur(3px) brightness(.8); z-index:20; }
+.slide.right{ opacity:1; transform:translateX(30%) scale(.82) rotateY(-12deg); filter:blur(3px) brightness(.8); z-index:20; }
 
 /* message */
-.message{ text-align:center; margin:12px 0; font-size:18px; min-height:30px; }
+.message{ margin-bottom: 20px; text-align:center; margin:12px 0; font-size:18px; min-height:30px; }
 
 /* reasons (list) with border & blur */
 #reasons{
@@ -250,6 +250,79 @@ video::-moz-media-controls {
 /* Edge / IE */
 video::-ms-media-controls {
   display: none !important;
+}
+
+/* Tela inicial ocupando toda a tela */
+#welcomeScreen {
+  position: fixed;
+  inset: 0;
+  background: var(--bg);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000; /* acima de tudo */
+}
+
+/* Texto máquina de escrever */
+#welcomeText {
+  font-family: "Pacifico", cursive;
+  font-size: clamp(22px, 4vw, 48px);
+  color: #fff;
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+/* Botão com efeito pulse */
+#startBtn {
+  background: var(--btn);
+  background-color: rgba(255,255,255,0.3);
+  color: #fff;
+  padding: 12px 28px;
+  font-size: 20px;
+  font-weight: bold;
+  border: none;
+  border-radius: 12px;
+  cursor: pointer;
+  animation: pulse 1.6s infinite;
+}
+
+/* Menu lateral escondido */
+#coisasAmor {
+  position: fixed;
+  top: 0;
+  right: -100%; /* começa fora da tela */
+  width: 90%;
+  max-width: 400px;
+  height: 100%;
+  background: rgba(255,255,255,0.03);
+  backdrop-filter: blur(6px);
+  border-left: 4px solid #fff;
+  padding: 20px;
+  overflow-y: auto;
+  z-index: 1000;
+  transition: right 0.4s ease;
+}
+
+/* Quando aberto */
+#coisasAmor.open {
+  right: 0; /* desliza para dentro da tela */
+}
+
+/* Ajuste lista */
+#coisasAmor h2 {
+  text-align: center;
+  margin-bottom: 20px;
+  color: #fff;
+}
+
+#coisasAmor ol {
+  padding-left: 20px;
+  color: #fff;
+}
+
+#coisasAmor li {
+  margin-bottom: 8px;
 }
 
 /* small utilities */

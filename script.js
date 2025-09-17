@@ -10,7 +10,13 @@ const finalText = document.getElementById('finalText');
 const overlay = document.getElementById('overlay');
 const music = document.getElementById('bgMusic');
 const musicControl = document.getElementById('musicControl');
+const welcomeText = document.getElementById('welcomeText');
+const startBtn = document.getElementById('startBtn');
+const welcomeScreen = document.getElementById('welcomeScreen');
+const toggleListBtn = document.getElementById('toggleList');
+const listaCoisas = document.getElementById('coisasAmor');
 
+let questionAnswered = false; // flag para saber se já clicou "Sim"
 let current = 0;
 const visited = new Set();
 
@@ -40,9 +46,9 @@ function updateSlides() {
 visited.add(current);
 
 // mostrar pergunta final somente quando todos os slides forem visitados
-if (visited.size === slides.length) {
-  finalQuestionContainer.style.display = 'block'; // mostra o container
-  setTimeout(() => { // fade-in suave
+if (visited.size === slides.length && !questionAnswered) {
+  finalQuestionContainer.style.display = 'block';
+  setTimeout(() => {
     finalQuestionContainer.style.opacity = '1';
   }, 50);
 }
@@ -154,13 +160,15 @@ noBtn.addEventListener('mouseenter', moveNoButton);
 
 // SIM -> mostra texto multilinha + confetes
 yesBtn.addEventListener('click', () => {
-  overlay.style.backdropFilter = 'blur(8px)';
+  questionAnswered = true; // marca que a pergunta foi respondida
+  finalQuestionContainer.style.display = 'none'; // esconde container
+  overlay.style.backdropFilter = 'blur(8px)'; // mantém efeito se quiser
   finalText.style.display = 'block';
   finalText.textContent = `UHUUUUUL\nnamoro oficializadoooo!! 🎉🥳\nAAAAAAAAAAAAAAAAAAAAAAAA`;
-  
-  noBtn.style.filter = 'blur(4px)'; // ajusta o valor conforme desejar
 
+  noBtn.style.filter = 'blur(4px)'; // efeito opcional
   confettiEffect();
+
   setTimeout(()=>{
     finalText.style.display = 'none';
     overlay.style.backdropFilter = 'blur(0px)';
@@ -257,3 +265,59 @@ window.addEventListener('resize', ()=> {
   }
 });
 
+// Função efeito máquina de escrever
+function typeWriter(text, element, speed = 70, callback) {
+  let i = 0;
+  element.textContent = "";
+  const interval = setInterval(() => {
+    if (i < text.length) {
+      element.textContent += text.charAt(i);
+      i++;
+    } else {
+      clearInterval(interval);
+      if (callback) callback();
+    }
+  }, speed);
+}
+
+// Quando a página carregar, começa o efeito
+window.addEventListener('load', () => {
+  typeWriter("Você está pronta para isso?", welcomeText, 70, () => {
+    // Mostra o botão quando terminar
+    startBtn.style.display = 'block';
+  });
+});
+
+// Clique no botão: some a tela inicial e começa a música
+startBtn.addEventListener('click', () => {
+  welcomeScreen.style.opacity = '1';
+  welcomeScreen.style.transition = 'opacity 0.8s ease';
+  welcomeScreen.style.opacity = '0';
+
+  setTimeout(() => {
+    welcomeScreen.style.display = 'none';
+    playMusicWithFade(); // já existe no seu script
+  }, 800);
+});
+
+// Quando clica em “Sim”
+yesBtn.addEventListener('click', () => {
+  const now = Date.now();
+  finalQuestionContainer.style.display = 'none';
+})
+
+// Este código será executado assim que a página carregar
+window.addEventListener('load', function() {
+localStorage.clear(); // limpa todos os itens do localStorage
+console.log("Local Storage resetado!");
+});
+
+toggleListBtn.addEventListener('click', () => {
+  listaCoisas.classList.toggle('open');
+
+  if (listaCoisas.classList.contains('open')) {
+    toggleListBtn.textContent = 'Esconder Lista💖';
+  } else {
+    toggleListBtn.textContent = 'Mostrar Lista💖';
+  }
+});

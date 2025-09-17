@@ -9,6 +9,12 @@
 </head>
 <body>
 
+<!-- Tela inicial -->
+<div id="welcomeScreen">
+  <h1 id="welcomeText"></h1>
+  <button id="startBtn" style="display:none;">Sim</button>
+</div>
+
 <div id="overlay"></div>
 
 <h2 id="specialRequest">UM PEDIDO ESPECIAL💖</h2>
@@ -72,6 +78,8 @@ Enfim, fiz esse pequeno resumo do começo de tudo, só para não deixar no esque
     <button id="no">Não 💔</button>
   </div>
 </div>
+
+<div id="love-counter" style="display: none; text-align:center; font-size:24px; margin-top:20px; color:#fff;"></div>
 
 <div id="finalText"></div>
 
@@ -183,9 +191,9 @@ Enfim, fiz esse pequeno resumo do começo de tudo, só para não deixar no esque
 </div>
 
 <audio id="bgMusic" src="musica.mp3" loop></audio>
-<button id="musicControl">Reproduzir Música</button>
+<button id="musicControl">Pausar Música</button>
+<button id="toggleList" style="position:fixed; left:12px; top:60px; z-index:500; background: rgba(255,255,255,0.2); color:#fff; border:0; padding:8px 12px; border-radius:10px; cursor:pointer;">Mostrar Lista 💖</button>
 
 <script src="script.js"></script>
 </body>
 </html>
-
